@@ -230,7 +230,7 @@ function OnboardingForm({ onStart }: OnboardingFormProps) {
       />
 
       <div className={`relative bg-white rounded-lg shadow-lg max-w-md w-full z-10 p-6 text-center transform transition-all duration-300 ${showModal ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto' : 'opacity-0 translate-y-6 scale-95 pointer-events-none'}`}>
-        <img src="/icecream.png" alt="ice cream" className="mx-auto mb-4 max-h-40 object-contain" />
+        <img src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/icecream.png`} alt="ice cream" className="mx-auto mb-4 max-h-40 object-contain" />
         <h2 className="text-2xl font-semibold mb-2">{"Welcome " + firstName + ", Lets build your AI Twin."}</h2>
         <h5 className="text-sm text-gray-500 mb-6">We're excited to get started.</h5>
         <div className="flex justify-center">
@@ -483,13 +483,13 @@ export default function Home() {
         <title>CoachNova - Account Setup</title>
         <meta name="description" content="Set up your CoachNova account" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/favicon.ico`} />
       </Head>
       <main className="onboarding-container">
         <div className="container">
           <div className="logo-container">
             <img
-              src="/logo.svg"
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/logo.svg`}
               alt="CoachNova"
               className="logo"
             />
