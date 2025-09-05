@@ -25,6 +25,12 @@ body {
   margin: 0; /* keep body margin reset, avoid resetting margins globally to preserve Tailwind spacing utilities */
 }
 
+/* Ensure root font-size makes 0.875rem (text-sm) >= 16px so mobile won't auto-zoom on form focus */
+html {
+  font-size: 18.285714px; /* 16 / 0.875 = 18.2857 -> so text-sm (0.875rem) becomes 16px; text-base becomes 18.2857px */
+  -webkit-text-size-adjust: 100%; /* prevent iOS from resizing text automatically */
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -395,6 +401,9 @@ input[type="range"]:focus::-webkit-slider-thumb {
   padding: 0 0.5rem;
   justify-content: center;
   position: relative; /* needed for connector line */
+  max-width: 100%;
+  align-items: flex-start !important;
+  width: auto;
 }
 .stepper-item:not(:last-child)::after {
   content: '';
@@ -452,3 +461,64 @@ input[type="range"]:focus::-webkit-slider-thumb {
 .progress-segment { flex:1; height:6px; background:#E5E7EB; border-radius:4px; position:relative; overflow:hidden; }
 .progress-segment .progress-inner { position:absolute; left:0; top:0; bottom:0; background:var(--primary); width:0%; transition:width .25s ease; }
 .progress-segment.active { /* fallback */ }
+
+/* Mobile fixed header and fixed bottom navigation when stepper is active */
+.stepper-active .logo-container {
+  position: fixed !important;
+  top: calc(env(safe-area-inset-top, 0px) + 8px) !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 9999 !important;
+  background: rgba(255,255,255,0.0) !important;
+  padding: 8px 0 !important;
+  pointer-events: auto !important;
+}
+
+.stepper-active .stepper-nav {
+  position: fixed !important;
+  top: calc(env(safe-area-inset-top, 0px) + 64px) !important; /* sits below logo and safe area */
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 9998 !important;
+  display: flex !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  white-space: nowrap !important;
+  flex-wrap: nowrap !important;
+  padding: 8px 16px !important;
+  gap: 0.75rem !important;
+  background: transparent !important;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+}
+
+/* hide scrollbars for the horizontal stepper */
+.stepper-active .stepper-nav::-webkit-scrollbar { display: none !important; }
+.stepper-active .stepper-nav { -ms-overflow-style: none !important; scrollbar-width: none !important; }
+
+/* add top padding to prevent content being hidden under fixed header; include safe-area inset */
+.stepper-active .container { padding-top: calc(env(safe-area-inset-top, 0px) + 140px) !important; }
+
+@media (max-width: 1024px) {
+  /* on smaller screens ensure the stepper items appear horizontally and are scrollable */
+  .stepper-active .stepper-nav { justify-content: flex-start !important; }
+}
+
+@media (max-width: 768px) {
+  .stepper-active .sub-step-nav {
+    position: fixed !important;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 0px) !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 10000 !important;
+    background: #F9FAFB !important; /* gray-50 */
+    box-shadow: 0 -6px 24px rgba(17,25,40,0.05) !important;
+    padding: 12px 16px calc(env(safe-area-inset-bottom, 0px) + 12px) !important;
+    display: flex !important;
+    gap: 12px !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+  /* ensure there is space at the bottom so content isn't hidden behind the fixed nav */
+  .stepper-active .container { padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 112px) !important; }
+}
