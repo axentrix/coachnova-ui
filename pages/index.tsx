@@ -1601,7 +1601,7 @@ export default function Home() {
       <Head>
         <title>CoachNova - Account Setup</title>
         <meta name="description" content="Set up your CoachNova account" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`onboarding-container ${showStepper ? 'stepper-active' : ''}`}>
