@@ -3,8 +3,7 @@ on:
   push:
     branches: [ main ]
 permissions:
-  contents: write   # allow pushing a branch
-
+  contents: write
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,7 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: 20 }
+        with:
+          node-version: 20
       - run: npm ci
       - run: npx next build
       - run: npx next export
@@ -23,5 +23,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./out
-          publish_branch: gh-pages     # <- be explicit
-          force_orphan: true           # <- create the branch if missing
+          publish_branch: gh-pages
+          force_orphan: true
