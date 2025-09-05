@@ -1,18 +1,20 @@
 ﻿name: Deploy Next.js to GitHub Pages
 on:
   push:
-    branches: [ main ]         # deploy whenever you push to main
+    branches: [ main ]
 permissions:
   contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      GITHUB_PAGES: true       # your next.config.js key
+      GITHUB_PAGES: true            # your next.config.js reads this
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: 20 }
+        with:
+          node-version: 20
       - run: npm ci
       - run: npx next build
       - run: npx next export
@@ -22,5 +24,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./out
-          publish_branch: gh-pages
-          force_orphan: true
+          publish_branch: gh-pages     # ← explicit
+          force_orphan: true           # ← creates/overwrites history
+          # optional, helpful for clarity:
+          commit_message: "deploy: ${{ github.sha }}"
