@@ -25,6 +25,12 @@ body {
   margin: 0; /* keep body margin reset, avoid resetting margins globally to preserve Tailwind spacing utilities */
 }
 
+/* Ensure root font-size makes 0.875rem (text-sm) >= 16px so mobile won't auto-zoom on form focus */
+html {
+  font-size: 18.285714px; /* 16 / 0.875 = 18.2857 -> so text-sm (0.875rem) becomes 16px; text-base becomes 18.2857px */
+  -webkit-text-size-adjust: 100%; /* prevent iOS from resizing text automatically */
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
