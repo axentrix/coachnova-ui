@@ -30,3 +30,8 @@ node_modules
 out
 dist
 node_modules
+
+.next
+out
+dist
+node_modules
