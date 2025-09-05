@@ -450,6 +450,8 @@ input[type="range"]:focus::-webkit-slider-thumb {
     justify-content: center;
   }
   .stepper-item { min-width: 110px; height: 56px; }
+  /* Ensure centered alignment on desktop even when stepper is active/fixed */
+  .stepper-active .stepper-nav { justify-content: center !important; }
 }
 
 @media (min-width: 768px) {
