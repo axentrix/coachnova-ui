@@ -807,7 +807,7 @@ function StepPanel({ step, stepIndex, total, onNext, onPrev, onProgressChange }:
             </div>
 
             {(subIndex === 0 || subIndex === 1) && (
-              <div className="flex justify-between mt-4">
+              <div className="sub-step-nav flex justify-between mt-4">
                 <button type="button" onClick={() => setSubIndex((s) => Math.max(0, s - 1))} disabled={subIndex === 0} className={`px-4 py-2 rounded-md ${subIndex === 0 ? 'bg-gray-100 text-gray-400' : 'bg-white border border-gray-300 text-gray-700'}`}>
                   Previous
                 </button>
@@ -968,7 +968,7 @@ function StepPanel({ step, stepIndex, total, onNext, onPrev, onProgressChange }:
             </div>
 
             {/* Sub-step navigation */}
-            <div className="flex justify-between mt-4">
+            <div className="sub-step-nav flex justify-between mt-4">
               <button type="button" onClick={() => setSubIndex((s) => Math.max(0, s - 1))} disabled={subIndex === 0} className={`px-4 py-2 rounded-md ${subIndex === 0 ? 'bg-gray-100 text-gray-400' : 'bg-white border border-gray-300 text-gray-700'}`}>
                 Previous
               </button>
@@ -1097,7 +1097,7 @@ function StepPanel({ step, stepIndex, total, onNext, onPrev, onProgressChange }:
             </div>
 
             {/* Sub-step navigation */}
-            <div className="flex justify-between mt-4">
+            <div className="sub-step-nav flex justify-between mt-4">
               <button type="button" onClick={() => setSubIndex((s) => Math.max(0, s - 1))} disabled={subIndex === 0} className={`px-4 py-2 rounded-md ${subIndex === 0 ? 'bg-gray-100 text-gray-400' : 'bg-white border border-gray-300 text-gray-700'}`}>
                 Previous
               </button>
@@ -1214,7 +1214,7 @@ function StepPanel({ step, stepIndex, total, onNext, onPrev, onProgressChange }:
             </div>
 
             {/* Sub-step navigation */}
-            <div className="flex justify-between mt-4">
+            <div className="sub-step-nav flex justify-between mt-4">
               <button type="button" onClick={() => setSubIndex((s) => Math.max(0, s - 1))} disabled={subIndex === 0} className={`px-4 py-2 rounded-md ${subIndex === 0 ? 'bg-gray-100 text-gray-400' : 'bg-white border border-gray-300 text-gray-700'}`}>
                 Previous
               </button>
@@ -1364,7 +1364,7 @@ function StepPanel({ step, stepIndex, total, onNext, onPrev, onProgressChange }:
 
             {/* Sub-step navigation (only on preview substep) */}
             {subIndex === 0 && (
-              <div className="flex justify-between mt-4">
+              <div className="sub-step-nav flex justify-between mt-4">
                 <button type="button" onClick={() => setSubIndex((s) => Math.max(0, s - 1))} disabled={subIndex === 0} className={`px-4 py-2 rounded-md ${subIndex === 0 ? 'bg-gray-100 text-gray-400' : 'bg-white border border-gray-300 text-gray-700'}`}>
                   Previous
                 </button>
@@ -1505,7 +1505,7 @@ function StepPanel({ step, stepIndex, total, onNext, onPrev, onProgressChange }:
             </div>
 
             {/* Sub-step navigation */}
-            <div className="flex justify-between mt-4">
+            <div className="sub-step-nav flex justify-between mt-4">
               <button type="button" onClick={() => setSubIndex((s) => Math.max(0, s - 1))} disabled={subIndex === 0} className={`px-4 py-2 rounded-md ${subIndex === 0 ? 'bg-gray-100 text-gray-400' : 'bg-white border border-gray-300 text-gray-700'}`}>
                 Previous
               </button>
@@ -1587,7 +1587,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="onboarding-container">
+      <main className={`onboarding-container ${showStepper ? 'stepper-active' : ''}`}>
         <div className="container">
           <div className="logo-container">
             <img
