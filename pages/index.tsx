@@ -254,7 +254,7 @@ function OnboardingForm({ onStart }: OnboardingFormProps) {
       />
 
       <div className={`relative bg-white rounded-lg shadow-lg max-w-md w-full z-10 p-6 text-center transform transition-all duration-300 ${showModal ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto' : 'opacity-0 translate-y-6 scale-95 pointer-events-none'}`}>
-        <img src="/icecream.png" alt="ice cream" className="mx-auto mb-4 max-h-40 object-contain" />
+        <img src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/icecream.png`} alt="ice cream" className="mx-auto mb-4 max-h-40 object-contain" />
         <h2 className="text-2xl font-semibold mb-2">{"Welcome " + firstName + ", Lets build your AI Twin."}</h2>
         <h5 className="text-sm text-gray-500 mb-6">We're excited to get started.</h5>
         <div className="flex justify-center">
@@ -732,7 +732,7 @@ function StepPanel({ step, stepIndex, total, onNext, onPrev, onProgressChange }:
 
   const ButtonChoice = ({ label, selected, onClick, emoji }: { label: string; selected: boolean; onClick: () => void; emoji?: string }) => (
     <button type="button" onClick={onClick} className={`px-4 py-2 rounded-md border flex items-center gap-2 ${selected ? 'bg-secondary text-black border-transparent' : 'bg-white text-gray-700 border-gray-300'}`}>
-      {emoji ? <span aria-hidden>{emoji}</span> : null}
+      {emoji ? <span aria-hidden className="flag-emoji">{emoji}</span> : null}
       <span>{label}</span>
     </button>
   );
@@ -752,7 +752,7 @@ function StepPanel({ step, stepIndex, total, onNext, onPrev, onProgressChange }:
   // language step
   if (step.id === 'language') {
     return (
-      <div className="mt-6 w-full">
+      <div className="w-full">
         {showIntro ? (
           <div className="min-h-[180px] flex flex-col items-center justify-center p-8">
             <h3 className="text-2xl font-semibold">{step.label}</h3>
@@ -833,7 +833,7 @@ function StepPanel({ step, stepIndex, total, onNext, onPrev, onProgressChange }:
   // Identity & Tone step
   if (step.id === 'identity') {
     return (
-      <div className="mt-6 w-full">
+      <div className="w-full">
         {showIntro ? (
           <div className="min-h-[180px] flex flex-col items-center justify-center text-center p-8">
             <h2 className="text-2xl font-semibold">Identity & Tone</h2>
@@ -1001,7 +1001,7 @@ function StepPanel({ step, stepIndex, total, onNext, onPrev, onProgressChange }:
   // Method & Beliefs step
   if (step.id === 'method') {
     return (
-      <div className="mt-6 w-full">
+      <div className="w-full">
         {showIntro ? (
           <div className="min-h-[180px] flex flex-col items-center justify-center text-center p-8">
             <h2 className="text-2xl font-semibold">Method and Beliefs</h2>
@@ -1128,7 +1128,7 @@ function StepPanel({ step, stepIndex, total, onNext, onPrev, onProgressChange }:
   // Example in Action step
   if (step.id === 'example') {
     return (
-      <div className="mt-6 w-full">
+      <div className="w-full">
         {showIntro ? (
           <div className="min-h-[180px] flex flex-col items-center justify-center text-center p-8">
             <h2 className="text-2xl font-semibold">Example in Action</h2>
@@ -1258,7 +1258,7 @@ function StepPanel({ step, stepIndex, total, onNext, onPrev, onProgressChange }:
     };
 
     return (
-      <div className="mt-6 w-full">
+      <div className="w-full">
         {showIntro ? (
           <div className="min-h-[180px] flex flex-col items-center justify-center text-center p-8">
             <h2 className="text-2xl font-semibold">Preview</h2>
@@ -1273,7 +1273,7 @@ function StepPanel({ step, stepIndex, total, onNext, onPrev, onProgressChange }:
             <div className=" min-h-[260px]">
               {/* Single dynamic preview card */}
               <div className={subIndex >= 1 ? "hidden" : "space-y-4"}>
-                <div className="rounded-md p-6 relative overflow-hidden" style={{ minHeight: '160px' }}>
+                <div className="rounded-2xl p-6 relative overflow-hidden shadow-2xl preview-card" style={{ minHeight: '160px' }}>
                   {/* background layers for smooth crossfade */}
                   <div className="absolute inset-0 bg-layer" style={{ background: bgGradient, transition: 'opacity 360ms ease', opacity: bgFading ? 0 : 1 }} />
                   {nextBgGradient ? <div className="absolute inset-0 bg-layer" style={{ background: nextBgGradient, transition: 'opacity 360ms ease', opacity: bgFading ? 1 : 0 }} /> : null}
@@ -1301,7 +1301,7 @@ function StepPanel({ step, stepIndex, total, onNext, onPrev, onProgressChange }:
 
                 {/* Closeness slider */}
                 <div>
-                  <label className="text-sm text-gray-500">How close is this to your style?</label>
+                  <label className="text-lg font-semibold text-gray-700">How close is this to your style?</label>
                   <div className="flex items-center gap-3 mt-2">
                     <span className="text-sm text-gray-600">Not at all</span>
                     <input type="range" min={1} max={10} value={previewRating} onChange={(e) => setPreviewRating(Number(e.target.value))} onMouseUp={() => setShowAdvancedPreviewControls(true)} onTouchEnd={() => setShowAdvancedPreviewControls(true)} className="flex-1 range-main" />
@@ -1337,19 +1337,15 @@ function StepPanel({ step, stepIndex, total, onNext, onPrev, onProgressChange }:
                 <div className="text-center space-y-4">
                   <h2 className="text-2xl font-semibold">What do you think?</h2>
                   <div className="flex flex-col sm:flex-row items-stretch justify-center gap-3 mt-3 w-100">
-                    <button type="button" onClick={() => { setSelectedFeedbackChoice('accept'); setSubIndex(2); }} className="flex-1 w-full px-4 py-3 bg-secondary text-black rounded-md">Yes, this sounds like me</button>
-                    <button type="button" onClick={() => { setSelectedFeedbackChoice('tweak'); setSubIndex(0); setShowAdvancedPreviewControls(true); }} className="flex-1 w-full px-4 py-3 border bg-white text-gray-700 rounded-md">Not quite, tweak it</button>
-                    <button type="button" onClick={() => { setSelectedFeedbackChoice('sharpen'); alert('Sharpen behaviour: coming soon'); }} className="flex-1 w-full px-4 py-3 border bg-white text-gray-700 rounded-md">Sharpen behavior</button>
+                    <button type="button" onClick={() => { setSelectedFeedbackChoice('accept'); setSubIndex(2); }} className="flex-1 w-full px-4 py-3 bg-primary hover:bg-primary-dark text-white rounded-md">Yes, this sounds like me</button>
+                    <button type="button" onClick={() => { setSelectedFeedbackChoice('tweak'); setSubIndex(0); setShowAdvancedPreviewControls(true); }} className="flex-1 w-full px-4 py-3 border bg-white hover:bg-gray-50 text-gray-700 rounded-md">Not quite, tweak it</button>
+                    <button type="button" onClick={() => { setSelectedFeedbackChoice('sharpen'); alert('Sharpen behaviour: coming soon'); }} className="flex-1 w-full px-4 py-3 border bg-white hover:bg-gray-50 text-gray-700 rounded-md">Sharpen behavior</button>
                   </div>
 
                   <div className="flex items-center justify-center gap-4 mt-4">
-                    <button type="button" onClick={() => setFeedbackThumb(feedbackThumb === 'up' ? null : 'up')} className={`px-3 py-2 rounded-md ${feedbackThumb === 'up' ? 'bg-gray-100' : ''}`}>👍</button>
-                    <button type="button" onClick={() => setFeedbackThumb(feedbackThumb === 'down' ? null : 'down')} className={`px-3 py-2 rounded-md ${feedbackThumb === 'down' ? 'bg-gray-100' : ''}`}>👎</button>
-                  </div>
-
-                  <div className="mt-4">
-                    <label className="text-sm text-gray-600">Rate it: {feedbackRating}</label>
-                    <input type="range" min={1} max={10} value={feedbackRating} onChange={(e) => setFeedbackRating(Number(e.target.value))} className="w-full range-main mt-2" />
+                    <span className="text-sm text-gray-600">Rate:</span>
+                    <button type="button" onClick={() => setFeedbackThumb(feedbackThumb === 'up' ? null : 'up')} className={`px-3 py-2 rounded-md ${feedbackThumb === 'up' ? 'bg-primary text-white' : 'bg-white border border-gray-200'}`}>👍</button>
+                    <button type="button" onClick={() => setFeedbackThumb(feedbackThumb === 'down' ? null : 'down')} className={`px-3 py-2 rounded-md ${feedbackThumb === 'down' ? 'bg-primary text-white' : 'bg-white border border-gray-200'}`}>👎</button>
                   </div>
                 </div>
               )}
@@ -1398,7 +1394,7 @@ function StepPanel({ step, stepIndex, total, onNext, onPrev, onProgressChange }:
   // Guardrails step
   if (step.id === 'guardrails') {
     return (
-      <div className="mt-6 w-full">
+      <div className="w-full">
         {showIntro ? (
           <div className="min-h-[180px] flex flex-col items-center justify-center text-center p-8">
             <h2 className="text-2xl font-semibold">Guardrails</h2>
@@ -1595,7 +1591,7 @@ export default function Home() {
         <div className="container">
           <div className="logo-container">
             <img
-              src="/logo.svg"
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/logo.svg`}
               alt="CoachNova"
               className="logo"
             />

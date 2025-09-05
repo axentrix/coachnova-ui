@@ -88,19 +88,6 @@ body {
   position: relative;
 }
 
-.heading {
-  width: 100%;
-  color: var(--gray-900);
-  text-align: center;
-  font-family: var(--font-family-inter);
-  font-size: 60px;
-  font-style: normal;
-  font-weight: 800;
-  line-height: 60px;
-  letter-spacing: -0.6px;
-  position: relative;
-}
-
 .supporting-text {
   max-width: 768px;
   width: 100%;
@@ -142,10 +129,8 @@ body {
     padding: 60px 20px;
   }
 
-  .heading {
-    font-size: 48px;
-    line-height: 48px;
-    letter-spacing: -0.48px;
+  .title-section {
+    gap: 16px;
   }
 
   .supporting-text {
@@ -174,12 +159,6 @@ body {
 
   .title-section {
     gap: 16px;
-  }
-
-  .heading {
-    font-size: 36px;
-    line-height: 40px;
-    letter-spacing: -0.36px;
   }
 
   .supporting-text {
@@ -265,42 +244,145 @@ body {
 
 /* Fallback utility classes in case Tailwind doesn't generate the custom color utilities */
 .bg-primary { background-color: var(--primary) !important; }
+.bg-secondary { background-color: #C59AF4 !important; }
 .hover\:bg-primary-dark:hover { background-color: var(--primary-dark) !important; }
 .text-primary { color: var(--primary) !important; }
 .focus\:ring-primary:focus { box-shadow: 0 0 0 3px rgba(111,62,135,0.3) !important; }
 
-/* Fallback for peer-checked:bg-primary and switch knob if Tailwind classes are not present */
-/* Targets: <input class="peer"> followed by the switch <div> */
-input.peer + div {
-  transition: background-color .15s ease-in-out;
+/* Flag emoji fallback (ensure flags render even with custom font stack) */
+.flag-emoji {
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'Twemoji', 'EmojiOne', sans-serif;
+  font-size: 1.15rem;
+  line-height: 1;
 }
 
-input.peer:checked + div {
-  background-color: var(--primary) !important;
+/* Preview card enhancement */
+.preview-card {
+  border-radius: 1rem !important;
+  box-shadow: 0 10px 30px rgba(17,25,40,0.12), 0 4px 10px rgba(17,25,40,0.06) !important;
 }
 
-input.peer + div::after {
-  content: '';
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 1.25rem; /* 20px */
-  height: 1.25rem; /* 20px */
+/* Button hover transition for subtle lift effect */
+.jumbotron button,
+.stepper-item,
+button[class*="px-"] {
+  transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease;
+}
+.jumbotron button:hover,
+button[class*="px-"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(17,25,40,0.08);
+}
+.jumbotron button:active,
+button[class*="px-"]:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Range slider gradients */
+.range-main,
+.range-direct,
+.range-warm,
+.range-chal {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 8px;
+  background-repeat: no-repeat;
+  outline: none;
+}
+
+/* Main slider: blend of directness -> challenge colors */
+.range-main {
+  background: linear-gradient(90deg, #D66BFA 0%, #69EDC7 100%);
+}
+.range-main::-webkit-slider-runnable-track {
+  height: 8px;
+  background: linear-gradient(90deg, #D66BFA 0%, #69EDC7 100%);
+  border-radius: 8px;
+}
+.range-main::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -5px; /* center the thumb */
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+  border: 2px solid rgba(255,255,255,0.9);
+}
+.range-main::-moz-range-track {
+  height: 8px;
+  background: linear-gradient(90deg, #D66BFA 0%, #69EDC7 100%);
+  border-radius: 8px;
+}
+.range-main::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid rgba(255,255,255,0.9);
+}
+
+/* Sub-sliders: directness, warmth, challenge */
+/* Ensure the input element itself shows a fallback gradient for browsers that don't style the track
+   (some browsers require the input background to be set alongside the pseudo-element track styles) */
+.range-direct {
+  background: linear-gradient(90deg, #D66BFA 0%, rgba(214,107,250,0.16) 100%);
+}
+.range-warm {
+  background: linear-gradient(90deg, #FFD27A 0%, rgba(255,210,122,0.16) 100%);
+}
+.range-chal {
+  background: linear-gradient(90deg, #69EDC7 0%, rgba(105,237,199,0.16) 100%);
+}
+
+.range-direct::-webkit-slider-runnable-track,
+.range-direct::-moz-range-track {
+  height: 8px;
+  background: linear-gradient(90deg, #D66BFA 0%, rgba(214,107,250,0.18) 100%);
+  border-radius: 8px;
+}
+.range-warm::-webkit-slider-runnable-track,
+.range-warm::-moz-range-track {
+  height: 8px;
+  background: linear-gradient(90deg, #FFD27A 0%, rgba(255,210,122,0.18) 100%);
+  border-radius: 8px;
+}
+.range-chal::-webkit-slider-runnable-track,
+.range-chal::-moz-range-track {
+  height: 8px;
+  background: linear-gradient(90deg, #69EDC7 0%, rgba(105,237,199,0.18) 100%);
+  border-radius: 8px;
+}
+
+/* Thumb styles for sub sliders reuse main thumb */
+.range-direct::-webkit-slider-thumb,
+.range-warm::-webkit-slider-thumb,
+.range-chal::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -4px;
+  border-radius: 50%;
   background: #fff;
-  border: 1px solid #D1D5DB;
-  border-radius: 9999px;
-  transition: left .15s ease-in-out, box-shadow .15s ease-in-out;
-  /* no translate-based movement to avoid overshoot */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+  border: 2px solid rgba(255,255,255,0.9);
+}
+.range-direct::-moz-range-thumb,
+.range-warm::-moz-range-thumb,
+.range-chal::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid rgba(255,255,255,0.9);
 }
 
-/* When checked, position knob to the right edge leaving 2px gap */
-input.peer:checked + div::after {
-/*  left: calc(100% - (1.25rem + 2px));*/
-}
-
-/* Ensure focus ring fallback uses primary color */
-input.peer:focus + div {
-  box-shadow: 0 0 0 4px rgba(111,62,135,0.15);
+/* Ensure focus ring is visible */
+input[type="range"]:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px rgba(111,62,135,0.12);
 }
 
 /* Stepper styles: non-scrollable, transparent inactive steps, consistent height */

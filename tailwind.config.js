@@ -11,7 +11,8 @@ module.exports = {
       colors: {
         'purple-bg': '#381C46',
         'primary': '#6F3E87',
-        'primary-dark': '#5b3370'
+        'primary-dark': '#5b3370',
+        'secondary': '#C59AF4'
       },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],

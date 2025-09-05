@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "set GITHUB_PAGES=true && npm run build && npx gh-pages -d out"
   },
   "dependencies": {
     "flowbite": "^3.1.2",
@@ -22,6 +23,7 @@
     "autoprefixer": "^10.4.21",
     "eslint": "^8.0.0",
     "eslint-config-next": "^14.0.0",
+    "gh-pages": "^6.3.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.12",
     "typescript": "^5.0.0"

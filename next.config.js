@@ -1,24 +1,31 @@
 // next.config.js
-const repo = 'coachnova-ui';             // e.g. "coachnova"
-const isPages = process.env.GITHUB_PAGES === 'true';
+const repo = 'coachnova-ui';
+
+// Only enable GitHub Pages mode when explicitly requested
+// This prevents accidental activation during development
+const isPages = process.env.GITHUB_PAGES === 'true' || process.env.GITHUB_ACTIONS === 'true';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Only enable static export when explicitly building for GitHub Pages
+  
+  // Auto-configure for GitHub Pages when detected
   output: isPages ? 'export' : undefined,
-  // trailingSlash only needed for Pages
   trailingSlash: isPages ? true : false,
-
-  // Only prepend /<repo> when building for Pages
+  
+  // Dynamic basePath and assetPrefix
   basePath: isPages ? `/${repo}` : '',
   assetPrefix: isPages ? `/${repo}/` : '',
+  
   env: {
-    // Use this for manual asset URLs in <img src=""> etc.
+    // Make base path available to components
     NEXT_PUBLIC_BASE_PATH: isPages ? `/${repo}` : '',
   },
+  
   images: {
     domains: ['api.builder.io'],
+    // For GitHub Pages, we need to handle images differently
+    unoptimized: isPages ? true : false,
   },
 };
 
