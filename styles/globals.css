@@ -395,6 +395,9 @@ input[type="range"]:focus::-webkit-slider-thumb {
   padding: 0 0.5rem;
   justify-content: center;
   position: relative; /* needed for connector line */
+  max-width: 100%;
+  align-items: flex-start !important;
+  width: auto;
 }
 .stepper-item:not(:last-child)::after {
   content: '';
