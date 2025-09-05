@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import Head from 'next/head';
 
 type OnboardingFormProps = {
@@ -268,9 +268,26 @@ function OnboardingForm({ onStart }: OnboardingFormProps) {
 }
 
 function Stepper({ steps, current, stepProgress, onJump }: { steps: { id: string; label: string; }[]; current: number; stepProgress?: Record<string, number>; onJump?: (index: number) => void }) {
+  const navRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const nav = navRef.current;
+    if (!nav) return;
+    const active = nav.querySelector('.stepper-item.active') as HTMLElement | null;
+    if (active) {
+      // center the active item within the scroll container when possible
+      const navRect = nav.getBoundingClientRect();
+      const activeRect = active.getBoundingClientRect();
+      const navCenter = (navRect.left + navRect.right) / 2;
+      const activeCenter = (activeRect.left + activeRect.right) / 2;
+      const offset = activeCenter - navCenter;
+      nav.scrollBy({ left: offset, behavior: 'smooth' });
+    }
+  }, [current]);
   return (
     <div className="w-full py-4">
-      <nav className="stepper-nav flex items-center gap-4">
+      <nav ref={navRef} className="stepper-nav flex items-center gap-4">
         {steps.map((s, i) => {
           const active = i === current;
           const completed = (stepProgress && (stepProgress[s.id] || 0) >= 1) || i < current;
