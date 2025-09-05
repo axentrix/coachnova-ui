@@ -452,3 +452,58 @@ input[type="range"]:focus::-webkit-slider-thumb {
 .progress-segment { flex:1; height:6px; background:#E5E7EB; border-radius:4px; position:relative; overflow:hidden; }
 .progress-segment .progress-inner { position:absolute; left:0; top:0; bottom:0; background:var(--primary); width:0%; transition:width .25s ease; }
 .progress-segment.active { /* fallback */ }
+
+/* Mobile fixed header and fixed bottom navigation when stepper is active */
+.stepper-active .logo-container {
+  position: fixed;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  background: transparent;
+  padding: 8px 0;
+}
+
+.stepper-active .stepper-nav {
+  position: fixed;
+  top: 64px; /* sits below logo */
+  left: 0;
+  right: 0;
+  z-index: 55;
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  padding: 8px 16px;
+  gap: 0.75rem;
+  background: transparent;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* hide scrollbars for the horizontal stepper */
+.stepper-active .stepper-nav::-webkit-scrollbar { display: none; }
+.stepper-active .stepper-nav { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* add top padding to prevent content being hidden under fixed header */
+.stepper-active .container { padding-top: 140px; }
+
+@media (max-width: 768px) {
+  .stepper-active .sub-step-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 70;
+    background: #F9FAFB; /* gray-50 */
+    box-shadow: 0 -6px 24px rgba(17,25,40,0.05);
+    padding: 12px 16px;
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  /* ensure there is space at the bottom so content isn't hidden behind the fixed nav */
+  .stepper-active .container { padding-bottom: 92px; }
+}
